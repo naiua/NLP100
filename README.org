@@ -1,79 +1,79 @@
 #+TITLE: 言語処理100本ノック 2015
 
 * 1章
-1. 文字列の逆順
-   文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
-   #+BEGIN_SRC julia
-   reverse("stressed")
-   #+END_SRC
+00. 文字列の逆順
+    文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
+    #+BEGIN_SRC julia
+reverse("stressed")
+    #+END_SRC
 
 01. 「パタトクカシーー」
     「パタトクカシーー」という文字列の1,3,5,7文字目を取り出して連結した文字列を得よ．
     #+BEGIN_SRC julia
-    "パタトクカシーー"[1:6:end]
+"パタトクカシーー"[1:6:end]
     #+END_SRC
 
 02. 「パトカー」＋「タクシー」＝「パタトクカシーー」
     「パトカー」＋「タクシー」の文字を先頭から交互に連結して文字列「パタトクカシーー」を得よ．
     #+BEGIN_SRC julia
-    p = "パトカー"
-    t = "タクシー"
+p = "パトカー"
+t = "タクシー"
 
-    reduce(*, [ p[i] * t[i] for i in 1:3:10 ])
+reduce(*, [ p[i] * t[i] for i in 1:3:10 ])
     #+END_SRC
 
 03. 円周率
     "Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics."という文を単語に分解し，各単語の（アルファベットの）文字数を先頭から出現順に並べたリストを作成せよ．
     #+BEGIN_SRC julia
-    sent = "Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics."
-    [ length(rstrip(x, [',', '.'])) for x = split(sent, " ") ]
+sent = "Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics."
+[ length(rstrip(x, [',', '.'])) for x = split(sent, " ") ]
     #+END_SRC
 
 04. 元素記号
     "Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can."という文を単語に分解し，1, 5, 6, 7, 8, 9, 15, 16, 19番目の単語は先頭の1文字，それ以外の単語は先頭に2文字を取り出し，取り出した文字列から単語の位置（先頭から何番目の単語か）への連想配列（辞書型もしくはマップ型）を作成せよ．
     #+BEGIN_SRC julia
-    sent = "Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can."
-    ssent = split(sent)
-    wantfirst = Set([1, 5, 6, 7, 8, 9, 15, 16, 19])
+sent = "Hi He Lied Because Boron Could Not Oxidize Fluorine. New Nations Might Also Sign Peace Security Clause. Arthur King Can."
+ssent = split(sent)
+wantfirst = Set([1, 5, 6, 7, 8, 9, 15, 16, 19])
 
-    Dict( i in wantfirst ? ssent[i][1] => i : ssent[i][1:2] => i for i = 1:length(ssent) )
+Dict( i in wantfirst ? ssent[i][1] => i : ssent[i][1:2] => i for i = 1:length(ssent) )
     #+END_SRC
 
 05. n-gram
     与えられたシーケンス（文字列やリストなど）からn-gramを作る関数を作成せよ．この関数を用い，"I am an NLPer"という文から単語bi-gram，文字bi-gramを得よ．
     #+BEGIN_SRC julia
-    seq = "I am an NLPer"
+seq = "I am an NLPer"
 
-    function n_gram(s::String, n::Integer)
-        arr=[]
-        for i in 1:length(s)-n+1
-            push!(arr, s[i:(i+n-1)])
-        end
-        print(arr)
+function n_gram(s::String, n::Integer)
+    arr=[]
+    for i in 1:length(s)-n+1
+        push!(arr, s[i:(i+n-1)])
     end
+    print(arr)
+end
 
-    n_gram(seq, 2)
+n_gram(seq, 2)
     #+END_SRC
 
 06. 集合
     "paraparaparadise"と"paragraph"に含まれる文字bi-gramの集合を，それぞれ, XとYとして求め，XとYの和集合，積集合，差集合を求めよ．さらに，'se'というbi-gramがXおよびYに含まれるかどうかを調べよ．
     #+BEGIN_SRC julia
-    X = Set(n_gram("paraparaparadise", 2))
-    Y = Set(n_gram("paragraph", 2))
+X = Set(n_gram("paraparaparadise", 2))
+Y = Set(n_gram("paragraph", 2))
 
-    X ∪ Y; X ∩ Y; setdiff(X, Y)
-    "se" ∈ X; "se" ∈ Y
+X ∪ Y; X ∩ Y; setdiff(X, Y)
+"se" ∈ X; "se" ∈ Y
     #+END_SRC
 
 07. テンプレートによる文生成
     引数x, y, zを受け取り「x時のyはz」という文字列を返す関数を実装せよ．さらに，x=12, y="気温", z=22.4として，実行結果を確認せよ．
     #+BEGIN_SRC julia
-    function osirase(x, y, z)
-        "$(x)時の$(y)は$(z)"
-    end
+function osirase(x, y, z)
+    "$(x)時の$(y)は$(z)"
+end
 
-    x=12; y="気温"; z=22.4
-    osirase(x, y, z)
+x=12; y="気温"; z=22.4
+osirase(x, y, z)
     #+END_SRC
 
 08. 暗号文
@@ -83,173 +83,173 @@
     その他の文字はそのまま出力
     この関数を用い，英語のメッセージを暗号化・復号化せよ．
     #+BEGIN_SRC julia
-    message = read(`fortune`, String)
+message = read(`fortune`, String)
 
-    function cipher(m::String)
-        reduce(*, [ (97 ≤ codepoint(c) && codepoint(c) ≤ 122) ? Char(219 - codepoint(c)) : c  for c = m ])
-    end
+function cipher(m::String)
+    reduce(*, [ (97 ≤ codepoint(c) && codepoint(c) ≤ 122) ? Char(219 - codepoint(c)) : c  for c = m ])
+end
 
-    cipher(message)
-    cipher(cipher(message))
+cipher(message)
+cipher(cipher(message))
     #+END_SRC
 
 09. Typoglycemia
     スペースで区切られた単語列に対して，各単語の先頭と末尾の文字は残し，それ以外の文字の順序をランダムに並び替えるプログラムを作成せよ．ただし，長さが４以下の単語は並び替えないこととする．適当な英語の文（例えば"I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."）を与え，その実行結果を確認せよ．
     #+BEGIN_SRC julia
-    using Random
-    sent = "I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."
+using Random
+sent = "I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."
 
-    function typoglycemia(s::String)
-        rsent = []
-        ssent = split(s)
+function typoglycemia(s::String)
+    rsent = []
+    ssent = split(s)
 
-        for w in ssent
-            l = length(w)
+    for w in ssent
+        l = length(w)
 
-            if l ≤ 4
-                push!(rsent, w)
-            else
-                push!(rsent, w[1] * reduce(*, [ w[i] for i = shuffle(2:l-1) ]) * w[end])
-            end
+        if l ≤ 4
+            push!(rsent, w)
+        else
+            push!(rsent, w[1] * reduce(*, [ w[i] for i = shuffle(2:l-1) ]) * w[end])
         end
-
-        print(join(rsent, " "))
     end
 
-    typoglycemia(sent)
+    print(join(rsent, " "))
+end
+
+typoglycemia(sent)
     #+END_SRC
 
 * 2章
 [[http://www.cl.ecei.tohoku.ac.jp/nlp100/data/hightemp.txt][hightemp.txt]]は，日本の最高気温の記録を「都道府県」「地点」「℃」「日」のタブ区切り形式で格納したファイルである．以下の処理を行うプログラムを作成し，[[http://www.cl.ecei.tohoku.ac.jp/nlp100/data/hightemp.txt][hightemp.txt]]を入力ファイルとして実行せよ．さらに，同様の処理をUNIXコマンドでも実行し，プログラムの実行結果を確認せよ．
 
-10. 行数のカウント
-    行数をカウントせよ．確認にはwcコマンドを用いよ．
-    #+BEGIN_SRC julia
-    countlines(open("./hightemp.txt"))
+    10. 行数のカウント
+        行数をカウントせよ．確認にはwcコマンドを用いよ．
+        #+BEGIN_SRC julia
+countlines(open("./hightemp.txt"))
 
-    run(`wc -l ./hightemp.txt`)
-    #+END_SRC
+run(`wc -l ./hightemp.txt`)
+        #+END_SRC
 
-11. タブをスペースに置換
-    タブ1文字につきスペース1文字に置換せよ．確認にはsedコマンド，trコマンド，もしくはexpandコマンドを用いよ．
-    #+BEGIN_SRC julia
-    hightemp=read("./hightemp.txt", String)
-    hightemp_replaced = replace(hightemp, "\t" => " ")
-    print(hightemp_replaced)
+    11. タブをスペースに置換
+        タブ1文字につきスペース1文字に置換せよ．確認にはsedコマンド，trコマンド，もしくはexpandコマンドを用いよ．
+        #+BEGIN_SRC julia
+hightemp=read("./hightemp.txt", String)
+hightemp_replaced = replace(hightemp, "\t" => " ")
+print(hightemp_replaced)
 
-    run(`sed -e "s/\t/ /g" ./hightemp.txt`)
-    run(pipeline(`cat ./hightemp.txt`, `tr '\t' ' '`))
-    run(`expand -t 1 ./hightemp.txt`)
-    #+END_SRC
+run(`sed -e "s/\t/ /g" ./hightemp.txt`)
+run(pipeline(`cat ./hightemp.txt`, `tr '\t' ' '`))
+run(`expand -t 1 ./hightemp.txt`)
+        #+END_SRC
 
-12. 1列目をcol1.txtに，2列目をcol2.txtに保存
-    各行の1列目だけを抜き出したものをcol1.txtに，2列目だけを抜き出したものをcol2.txtとしてファイルに保存せよ．確認にはcutコマンドを用いよ．
-    #+BEGIN_SRC julia
-    lines = readlines("./hightemp.txt")
-    col1 = open("col1.txt", "a"); col2 = open("col2.txt", "a")
+    12. 1列目をcol1.txtに，2列目をcol2.txtに保存
+        各行の1列目だけを抜き出したものをcol1.txtに，2列目だけを抜き出したものをcol2.txtとしてファイルに保存せよ．確認にはcutコマンドを用いよ．
+        #+BEGIN_SRC julia
+lines = readlines("./hightemp.txt")
+col1 = open("col1.txt", "a"); col2 = open("col2.txt", "a")
 
-    for i in lines
-        write(col1, split(i, "\t")[1], "\n")
-        write(col2, split(i, "\t")[2], "\n")
-    end
+for i in lines
+    write(col1, split(i, "\t")[1], "\n")
+    write(col2, split(i, "\t")[2], "\n")
+end
 
-    close(col1); close(col2)
+close(col1); close(col2)
 
-    run(`cut -f 1 hightemp.txt`)
-    run(`cut -f 2 hightemp.txt`)
-    #+END_SRC
+run(`cut -f 1 hightemp.txt`)
+run(`cut -f 2 hightemp.txt`)
+        #+END_SRC
 
-13. col1.txtとcol2.txtをマージ
-    12で作ったcol1.txtとcol2.txtを結合し，元のファイルの1列目と2列目をタブ区切りで並べたテキストファイルを作成せよ．確認にはpasteコマンドを用いよ．
-    #+BEGIN_SRC julia
-    col1 = readlines("col1.txt"); col2 = readlines("col2.txt")
-    colconcat = open("colconcat.txt", "a")
+    13. col1.txtとcol2.txtをマージ
+        12で作ったcol1.txtとcol2.txtを結合し，元のファイルの1列目と2列目をタブ区切りで並べたテキストファイルを作成せよ．確認にはpasteコマンドを用いよ．
+        #+BEGIN_SRC julia
+col1 = readlines("col1.txt"); col2 = readlines("col2.txt")
+colconcat = open("colconcat.txt", "a")
 
-    for i = 1:length(col1)
-        write(colconcat, "$(col1[i])\t$(col2[i])\n", )
-    end
+for i = 1:length(col1)
+    write(colconcat, "$(col1[i])\t$(col2[i])\n", )
+end
 
-    close(colconcat)
+close(colconcat)
 
-    run(`paste col1.txt col2.txt`)
-    #+END_SRC
+run(`paste col1.txt col2.txt`)
+        #+END_SRC
 
-14. 先頭からN行を出力
-    自然数Nをコマンドライン引数などの手段で受け取り，入力のうち先頭のN行だけを表示せよ．確認にはheadコマンドを用いよ．
-    #+BEGIN_SRC julia
-    file = readlines(ARGS[1])
-    col = parse(Int, ARGS[2])
+    14. 先頭からN行を出力
+        自然数Nをコマンドライン引数などの手段で受け取り，入力のうち先頭のN行だけを表示せよ．確認にはheadコマンドを用いよ．
+        #+BEGIN_SRC julia
+file = readlines(ARGS[1])
+col = parse(Int, ARGS[2])
 
-    for i in 1:col
-        println(file[i])
-    end
+for i in 1:col
+    println(file[i])
+end
 
-    run(`head -n 5 hightemp.txt`)
-    #+END_SRC
+run(`head -n 5 hightemp.txt`)
+        #+END_SRC
 
-15. 末尾のN行を出力
-    自然数Nをコマンドライン引数などの手段で受け取り，入力のうち末尾のN行だけを表示せよ．確認にはtailコマンドを用いよ．
-    #+BEGIN_SRC julia
-    file = readlines(ARGS[1])
-    col = parse(Int, ARGS[2])
-    start = length(file)-col+1
-    last = length(file)
+    15. 末尾のN行を出力
+        自然数Nをコマンドライン引数などの手段で受け取り，入力のうち末尾のN行だけを表示せよ．確認にはtailコマンドを用いよ．
+        #+BEGIN_SRC julia
+file = readlines(ARGS[1])
+col = parse(Int, ARGS[2])
+start = length(file)-col+1
+last = length(file)
 
-    for i in start:last
-        println(file[i])
-    end
+for i in start:last
+    println(file[i])
+end
 
-    run(`tail -n 5 hightemp.txt`)
-    #+END_SRC
+run(`tail -n 5 hightemp.txt`)
+        #+END_SRC
 
-16. ファイルをN分割する
-    自然数Nをコマンドライン引数などの手段で受け取り，入力のファイルを行単位でN分割せよ．同様の処理をsplitコマンドで実現せよ．
-    #+BEGIN_SRC julia
-    temp = readlines("hightemp.txt", keep=true)
-    l = length(temp)
-    n = parse(Int, ARGS[1])
-    s = l ÷ n
-    r = l % n
-    arr = [ x ≤ r ? s + 1 : s for x = 1:n ]
+    16. ファイルをN分割する
+        自然数Nをコマンドライン引数などの手段で受け取り，入力のファイルを行単位でN分割せよ．同様の処理をsplitコマンドで実現せよ．
+        #+BEGIN_SRC julia
+temp = readlines("hightemp.txt", keep=true)
+l = length(temp)
+n = parse(Int, ARGS[1])
+s = l ÷ n
+r = l % n
+arr = [ x ≤ r ? s + 1 : s for x = 1:n ]
 
-    for (index, line) in enumerate(arr)
-        start = reduce(+, arr[1:index]) - line + 1
-        last = start + line - 1
+for (index, line) in enumerate(arr)
+    start = reduce(+, arr[1:index]) - line + 1
+    last = start + line - 1
 
-        write("divide_$(index).txt", reduce(*, temp[start:last]))
-    end
+    write("divide_$(index).txt", reduce(*, temp[start:last]))
+end
 
-    run(`split -l 5 hightemp.txt divide`)
-    #+END_SRC
+run(`split -l 5 hightemp.txt divide`)
+        #+END_SRC
 
-17. １列目の文字列の異なり
-    1列目の文字列の種類（異なる文字列の集合）を求めよ．確認にはsort, uniqコマンドを用いよ．
-    #+BEGIN_SRC julia
-    Set(readlines("col1.txt"))
+    17. １列目の文字列の異なり
+        1列目の文字列の種類（異なる文字列の集合）を求めよ．確認にはsort, uniqコマンドを用いよ．
+        #+BEGIN_SRC julia
+Set(readlines("col1.txt"))
 
-    run(pipeline(`sort col1.txt`, `uniq`))
-    #+END_SRC
+run(pipeline(`sort col1.txt`, `uniq`))
+        #+END_SRC
 
-18. 各行を3コラム目の数値の降順にソート
-    各行を3コラム目の数値の逆順で整列せよ（注意: 各行の内容は変更せずに並び替えよ）．確認にはsortコマンドを用いよ（この問題はコマンドで実行した時の結果と合わなくてもよい）．
-    #+BEGIN_SRC julia
-    hightemp = readlines("hightemp.txt")
+    18. 各行を3コラム目の数値の降順にソート
+        各行を3コラム目の数値の逆順で整列せよ（注意: 各行の内容は変更せずに並び替えよ）．確認にはsortコマンドを用いよ（この問題はコマンドで実行した時の結果と合わなくてもよい）．
+        #+BEGIN_SRC julia
+hightemp = readlines("hightemp.txt")
 
-    sort(hightemp, by = x -> split(x)[3], rev = true)
+sort(hightemp, by = x -> split(x)[3], rev = true)
 
-    run(`sort -k 3 -r hightemp.txt`)
-    #+END_SRC
+run(`sort -k 3 -r hightemp.txt`)
+        #+END_SRC
 
-19. 各行の1コラム目の文字列の出現頻度を求め，出現頻度の高い順に並べる
-    各行の1列目の文字列の出現頻度を求め，その高い順に並べて表示せよ．確認にはcut, uniq, sortコマンドを用いよ．
-    #+BEGIN_SRC julia
-    col1 = readlines("col1.txt")
-    col1s = Set(readlines("col1.txt"))
+    19. 各行の1コラム目の文字列の出現頻度を求め，出現頻度の高い順に並べる
+        各行の1列目の文字列の出現頻度を求め，その高い順に並べて表示せよ．確認にはcut, uniq, sortコマンドを用いよ．
+        #+BEGIN_SRC julia
+col1 = readlines("col1.txt")
+col1s = Set(readlines("col1.txt"))
 
-    sort([ "$(count(x -> i == x, col1))" * " " * i for i = col1s ], by = x -> split(x)[1], rev = true)
+sort([ "$(count(x -> i == x, col1))" * " " * i for i = col1s ], by = x -> split(x)[1], rev = true)
 
-    run(pipeline(`cut -f 1 hightemp.txt`, `sort`, `uniq -c`, `sort -k 1 -r`))
-    #+END_SRC
+run(pipeline(`cut -f 1 hightemp.txt`, `sort`, `uniq -c`, `sort -k 1 -r`))
+        #+END_SRC
 
 * 3章
 Wikipediaの記事を以下のフォーマットで書き出したファイル[[http://www.cl.ecei.tohoku.ac.jp/nlp100/data/jawiki-country.json.gz][jawiki-country.json.gz]]がある．
@@ -259,153 +259,153 @@ Wikipediaの記事を以下のフォーマットで書き出したファイル[[
 以下の処理を行うプログラムを作成せよ．
 
 20. JSONデータの読み込み
-Wikipedia記事のJSONファイルを読み込み，「イギリス」に関する記事本文を表示せよ．問題21-29では，ここで抽出した記事本文に対して実行せよ．
-#+BEGIN_SRC julia
-Pkg.add("JSON")
-using JSON
-run(`wget http://www.cl.ecei.tohoku.ac.jp/nlp100/data/jawiki-country.json.gz`)
-run(`gunzip jawiki-country.json.gz`)
-wiki = open("./jawiki-country.json", "r")
+    Wikipedia記事のJSONファイルを読み込み，「イギリス」に関する記事本文を表示せよ．問題21-29では，ここで抽出した記事本文に対して実行せよ．
+    #+BEGIN_SRC julia
+    Pkg.add("JSON")
+    using JSON
+    run(`wget http://www.cl.ecei.tohoku.ac.jp/nlp100/data/jawiki-country.json.gz`)
+    run(`gunzip jawiki-country.json.gz`)
+    wiki = open("./jawiki-country.json", "r")
 
-for l in eachline(wiki)
-    title = JSON.parse(l)["title"]
-    if title == "イギリス"
-        global text = JSON.parse(l)["text"]
-        break
-    else
-        continue
+    for l in eachline(wiki)
+        title = JSON.parse(l)["title"]
+        if title == "イギリス"
+            global text = JSON.parse(l)["text"]
+            break
+        else
+            continue
+        end
     end
-end
-#+END_SRC
+    #+END_SRC
 
 21. カテゴリ名を含む行を抽出
-記事中でカテゴリ名を宣言している行を抽出せよ．
-#+BEGIN_SRC julia
-m = eachmatch(r"^.*Category.*$"m, text)
-c = collect(m)
+    記事中でカテゴリ名を宣言している行を抽出せよ．
+    #+BEGIN_SRC julia
+    m = eachmatch(r"^.*Category.*$"m, text)
+    c = collect(m)
 
-matcharr = [ x.match for x = c ]
-#+END_SRC
+    matcharr = [ x.match for x = c ]
+    #+END_SRC
 
 22. カテゴリ名の抽出
-記事のカテゴリ名を（行単位ではなく名前で）抽出せよ．
-#+BEGIN_SRC julia
-reg = r"Category:(?<catname>.*?)(\|\*)?\]\]"
-[ match(reg, x)[1]  for x = matcharr ]
-#+END_SRC
+    記事のカテゴリ名を（行単位ではなく名前で）抽出せよ．
+    #+BEGIN_SRC julia
+    reg = r"Category:(?<catname>.*?)(\|\*)?\]\]"
+    [ match(reg, x)[1]  for x = matcharr ]
+    #+END_SRC
 
 23. セクション構造
-記事中に含まれるセクション名とそのレベル（例えば"== セクション名 =="なら1）を表示せよ．
-#+BEGIN_SRC julia
-m = eachmatch(r"^(==+)([^=]+?)(=+)$"m, text)
-c = collect(m)
+    記事中に含まれるセクション名とそのレベル（例えば"== セクション名 =="なら1）を表示せよ．
+    #+BEGIN_SRC julia
+    m = eachmatch(r"^(==+)([^=]+?)(=+)$"m, text)
+    c = collect(m)
 
-[ s[2] * " " * "$(length(s[1]))" for s = c ]
-#+END_SRC
+    [ s[2] * " " * "$(length(s[1]))" for s = c ]
+    #+END_SRC
 
 24. ファイル参照の抽出
-記事から参照されているメディアファイルをすべて抜き出せ．
-#+BEGIN_SRC julia
-m = eachmatch(r"(ファイル|File):([^|]+?)\|"m, text)
-file = collect(m)
+    記事から参照されているメディアファイルをすべて抜き出せ．
+    #+BEGIN_SRC julia
+    m = eachmatch(r"(ファイル|File):([^|]+?)\|"m, text)
+    file = collect(m)
 
-[ i[2] for i in file ]
-#+END_SRC
+    [ i[2] for i in file ]
+    #+END_SRC
 
 25. テンプレートの抽出
-記事中に含まれる「基礎情報」テンプレートのフィールド名と値を抽出し，辞書オブジェクトとして格納せよ．
-#+BEGIN_SRC julia
-m = match(r"基礎情報 国\n\|(.*?)}}\n'''"s, text)
+    記事中に含まれる「基礎情報」テンプレートのフィールド名と値を抽出し，辞書オブジェクトとして格納せよ．
+    #+BEGIN_SRC julia
+    m = match(r"基礎情報 国\n\|(.*?)}}\n'''"s, text)
 
-basic = m.captures[1]
-baseinfo = Dict()
+    basic = m.captures[1]
+    baseinfo = Dict()
 
-Dict( split(i, " = ")[1] => split(i, " = ")[2] for i in split(basic, "\n|") )
-for i in split(basic, "\n|")
-    field = split(i, " = ")[1]
-    val = split(i, " = ")[2]
-    push!(baseinfo, field => val)
-end
+    Dict( split(i, " = ")[1] => split(i, " = ")[2] for i in split(basic, "\n|") )
+    for i in split(basic, "\n|")
+        field = split(i, " = ")[1]
+        val = split(i, " = ")[2]
+        push!(baseinfo, field => val)
+    end
 
-baseinfo
-#+END_SRC
+    baseinfo
+    #+END_SRC
 
 26. 強調マークアップの除去
-25の処理時に，テンプレートの値からMediaWikiの強調マークアップ（弱い強調，強調，強い強調のすべて）を除去してテキストに変換せよ（参考: [[http://ja.wikipedia.org/wiki/Help:%E6%97%A9%E8%A6%8B%E8%A1%A8][マークアップ早見表]]）．
-#+BEGIN_SRC julia
-baseinfo2 = Dict()
+    25の処理時に，テンプレートの値からMediaWikiの強調マークアップ（弱い強調，強調，強い強調のすべて）を除去してテキストに変換せよ（参考: [[http://ja.wikipedia.org/wiki/Help:%E6%97%A9%E8%A6%8B%E8%A1%A8][マークアップ早見表]]）．
+    #+BEGIN_SRC julia
+    baseinfo2 = Dict()
 
-for i in split(basic, "\n|")
-    field = split(i, " = ")[1]
-    val = split(i, " = ")[2]
-    val2 = replace(val, r"'{2,5}" => "" )
+    for i in split(basic, "\n|")
+        field = split(i, " = ")[1]
+        val = split(i, " = ")[2]
+        val2 = replace(val, r"'{2,5}" => "" )
 
-    push!(baseinfo2, field => val2)
-end
+        push!(baseinfo2, field => val2)
+    end
 
-baseinfo2
-#+END_SRC
+    baseinfo2
+    #+END_SRC
 
 27. 内部リンクの除去
-26の処理に加えて，テンプレートの値からMediaWikiの内部リンクマークアップを除去し，テキストに変換せよ（参考: [[http://ja.wikipedia.org/wiki/Help:%E6%97%A9%E8%A6%8B%E8%A1%A8][マークアップ早見表]]）．
-#+BEGIN_SRC julia
-baseinfo3 = Dict()
+    26の処理に加えて，テンプレートの値からMediaWikiの内部リンクマークアップを除去し，テキストに変換せよ（参考: [[http://ja.wikipedia.org/wiki/Help:%E6%97%A9%E8%A6%8B%E8%A1%A8][マークアップ早見表]]）．
+    #+BEGIN_SRC julia
+    baseinfo3 = Dict()
 
-for i in split(basic, "\n|")
-    field = split(i, " = ")[1]
-    val = split(i, " = ")[2]
-    val2 = replace(val, r"'{2,5}" => "" )
-    val3 = replace(val2, r"\[\[(?<res>[^|\[\]]+)\]\]" => s"\g<res>" )
-    val3 = replace(val3, r"\[\[[^|\[\]]+\|(?<res>[^|\[\]]+)\]\]" => s"\g<res>" )
+    for i in split(basic, "\n|")
+        field = split(i, " = ")[1]
+        val = split(i, " = ")[2]
+        val2 = replace(val, r"'{2,5}" => "" )
+        val3 = replace(val2, r"\[\[(?<res>[^|\[\]]+)\]\]" => s"\g<res>" )
+        val3 = replace(val3, r"\[\[[^|\[\]]+\|(?<res>[^|\[\]]+)\]\]" => s"\g<res>" )
 
-    push!(baseinfo3, field => val3)
-end
+        push!(baseinfo3, field => val3)
+    end
 
-baseinfo3
-#+END_SRC
+    baseinfo3
+    #+END_SRC
 
 28. MediaWikiマークアップの除去
-27の処理に加えて，テンプレートの値からMediaWikiマークアップを可能な限り除去し，国の基本情報を整形せよ．
-#+BEGIN_SRC julia
-baseinfo4 = Dict()
+    27の処理に加えて，テンプレートの値からMediaWikiマークアップを可能な限り除去し，国の基本情報を整形せよ．
+    #+BEGIN_SRC julia
+    baseinfo4 = Dict()
 
-for i in split(basic, "\n|")
-    field = split(i, " = ")[1]
-    val = split(i, " = ")[2]
-    val2 = replace(val, r"'{2,5}" => "" )
-    val3 = replace(val2, r"\[\[(?<res>[^|\[\]]+)\]\]" => s"\g<res>" )
-    val4 = replace(val3, r"\[\[[^\[\]]+\|(?<res>[^|\[\]]+)\]\]" => s"\g<res>" )
-    val4 = replace(val4, r"\[http://.*?(?<res> .+)\]" => s"\g<res>" )
-    val4 = replace(val4, r"\{\{[^|]+\|[^|]+\|(?<res>[^|]+)\}\}" => s"\g<res>" )
-    val4 = replace(val4, r"<br ?/>" => "" )
-    val4 = replace(val4, r"</?ref.*?>" => "" )
+    for i in split(basic, "\n|")
+        field = split(i, " = ")[1]
+        val = split(i, " = ")[2]
+        val2 = replace(val, r"'{2,5}" => "" )
+        val3 = replace(val2, r"\[\[(?<res>[^|\[\]]+)\]\]" => s"\g<res>" )
+        val4 = replace(val3, r"\[\[[^\[\]]+\|(?<res>[^|\[\]]+)\]\]" => s"\g<res>" )
+        val4 = replace(val4, r"\[http://.*?(?<res> .+)\]" => s"\g<res>" )
+        val4 = replace(val4, r"\{\{[^|]+\|[^|]+\|(?<res>[^|]+)\}\}" => s"\g<res>" )
+        val4 = replace(val4, r"<br ?/>" => "" )
+        val4 = replace(val4, r"</?ref.*?>" => "" )
 
-    push!(baseinfo4, field => val4)
-end
+        push!(baseinfo4, field => val4)
+    end
 
-baseinfo4
-#+END_SRC
+    baseinfo4
+    #+END_SRC
 
 29. 国旗画像のURLを取得する
-テンプレートの内容を利用し，国旗画像のURLを取得せよ．（ヒント: [[http://www.mediawiki.org/wiki/API:Main_page/ja][MediaWiki API]]の[[http://www.mediawiki.org/wiki/API:Properties/ja#imageinfo_.2F_ii][imageinfo]]を呼び出して，ファイル参照をURLに変換すればよい）
-#+BEGIN_SRC julia
-using HTTP
-using JSON
-flag = baseinfo4["国旗画像"]
+    テンプレートの内容を利用し，国旗画像のURLを取得せよ．（ヒント: [[http://www.mediawiki.org/wiki/API:Main_page/ja][MediaWiki API]]の[[http://www.mediawiki.org/wiki/API:Properties/ja#imageinfo_.2F_ii][imageinfo]]を呼び出して，ファイル参照をURLに変換すればよい）
+    #+BEGIN_SRC julia
+    using HTTP
+    using JSON
+    flag = baseinfo4["国旗画像"]
 
-request = "https://www.mediawiki.org/w/api.php" *
-    "?action=query" *
-    "&format=json" *
-    "&titles=File:" *
-    HTTP.URIs.escapeuri(flag) *
-    "&prop=imageinfo" *
-    "&iiprop=url"
+    request = "https://www.mediawiki.org/w/api.php" *
+        "?action=query" *
+        "&format=json" *
+        "&titles=File:" *
+        HTTP.URIs.escapeuri(flag) *
+        "&prop=imageinfo" *
+        "&iiprop=url"
 
-r = HTTP.request("GET", request)
+    r = HTTP.request("GET", request)
 
-res = String(r.body)
-url = JSON.parse(res)["query"]["pages"]["-1"]["imageinfo"][1]["url"]
-#+END_SRC
+    res = String(r.body)
+    url = JSON.parse(res)["query"]["pages"]["-1"]["imageinfo"][1]["url"]
+    #+END_SRC
 
 * 4章
 夏目漱石の小説『吾輩は猫である』の文章（[[http://www.cl.ecei.tohoku.ac.jp/nlp100/data/neko.txt][neko.txt]]）をMeCabを使って形態素解析し，その結果をneko.txt.mecabというファイルに保存せよ．このファイルを用いて，以下の問に対応するプログラムを実装せよ．
