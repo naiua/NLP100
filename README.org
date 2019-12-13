@@ -1,5 +1,4 @@
 #+TITLE: 言語処理100本ノック 2015
-#+OPTIONS: title:t toc:t H:4 num:t
 
 * 1章
 ** 00. 文字列の逆順
